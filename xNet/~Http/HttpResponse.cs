@@ -1191,7 +1191,12 @@ namespace xNet
 
                 if (headerName.Equals("Set-Cookie", StringComparison.OrdinalIgnoreCase))
                 {
-                    SetCookie(headerValue);
+                    if (headerValue.Equals("Secure", StringComparison.OrdinalIgnoreCase) || headerValue.Equals("HttpOnly", StringComparison.OrdinalIgnoreCase) || headerValue.Equals("Secure;HttpOnly;",StringComparison.OrdinalIgnoreCase) || headerValue.Equals("HttpOnly;Secure;", StringComparison.OrdinalIgnoreCase ))
+                    {
+                        _headers[headerName] = headerValue;
+                    } else {
+                        SetCookie(headerValue);
+                    }
                 }
                 else
                 {
